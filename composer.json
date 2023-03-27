@@ -11,7 +11,7 @@
     "autoload": {
         "psr-4": {
             "Nekit44\\AdmitadPhpApi\\": "src/",
-            "test\\": "tests/"
+            "tests\\": "tests/"
         }
     },
     "require": {

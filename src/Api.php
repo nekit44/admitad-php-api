@@ -16,14 +16,16 @@ class Api
     private ?string $accessToken;
     private Curl $curl;
     private string $language = Language::RU;
+    private ?string $basicToken;
+
 
     /**
      * @param ?string $accessToken
      */
-    public function __construct(string $accessToken = null)
+    public function __construct(string $accessToken = null, $curl = new Curl())
     {
         $this->accessToken = $accessToken;
-        $this->curl = new Curl();
+        $this->curl = $curl;
         $this->curl->setHeader('Host', 'api.admitad.com');
     }
 
@@ -33,6 +35,14 @@ class Api
     public function getAccessToken(): ?string
     {
         return $this->accessToken;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBasicToken(): ?string
+    {
+        return $this->basicToken;
     }
 
     /**
@@ -61,9 +71,9 @@ class Api
      * @return stdClass
      * @throws ApiException
      */
-    public function authorizedByAccessToken(string $clientId, string $scope): stdClass
+    public function authorizedByBasicToken(string $clientId, string $scope): stdClass
     {
-        $this->curl->setHeader('Authorization', "Basic {$this->getAccessToken()}");
+        $this->curl->setHeader('Authorization', "Basic {$this->getBasicToken()}");
         return $this->authorized($clientId, $scope);
     }
 
@@ -76,8 +86,8 @@ class Api
      */
     public function authorizedByClientIdAndSecret(string $clientId, string $clientSecret, string $scope): stdClass
     {
-        $this->setAccessToken(base64_encode("$clientId:$clientSecret"));
-        $this->curl->setHeader('Authorization', "Basic {$this->getAccessToken()}");
+        $this->setBasicToken(base64_encode("$clientId:$clientSecret"));
+        $this->curl->setHeader('Authorization', "Basic {$this->getBasicToken()}");
         return $this->authorized($clientId, $scope);
     }
 
@@ -151,5 +161,10 @@ class Api
             'client_id' => $clientId,
             'scope' => $scope,
         ]);
+    }
+
+    private function setBasicToken(string $base64_encode)
+    {
+        $this->basicToken = $base64_encode;
     }
 }

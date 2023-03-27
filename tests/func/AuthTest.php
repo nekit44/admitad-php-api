@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace func\test;
+namespace tests\func\test;
 
 use Nekit44\AdmitadPhpApi\Api;
 use PHPUnit\Framework\TestCase;

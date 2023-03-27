@@ -1,20 +1,33 @@
 <?php
 declare(strict_types=1);
 
-namespace func\unit;
+namespace tests\func\unit;
+
 
 use Nekit44\AdmitadPhpApi\Api;
 use PHPUnit\Framework\TestCase;
+use tests\common\DummyCurl;
+use function PHPUnit\Framework\assertEquals;
 
 class ApiTest extends TestCase
 {
 
     public function testToken()
     {
-        $api = new Api('Y2IyODFkOTE4YTM3ZTM0NmI0NWU5YWVhMWM2ZWI3O4443hhOGIyNGRlOGI4MTgyYTBkZGQyZTg5ZjViMQ==');
+        $api = new Api('access_token==');
         self::assertEquals(
-            'Y2IyODFkOTE4YTM3ZTM0NmI0NWU5YWVhMWM2ZWI3O4443hhOGIyNGRlOGI4MTgyYTBkZGQyZTg5ZjViMQ==',
+            'access_token==',
             $api->getAccessToken()
         );
+    }
+
+    public function testGenToken()
+    {
+        $curl = new DummyCurl();
+        $api = new Api('access_token', $curl);
+        $clientId = 'b5c3064c07f18c931f65a6c23d3880';
+        $secret = 'b98de2cbc0801976f1dcd47c3d61a2';
+        $api->authorizedByClientIdAndSecret($clientId, $secret, 'advcampaigns banners websites');
+        assertEquals('YjVjMzA2NGMwN2YxOGM5MzFmNjVhNmMyM2QzODgwOmI5OGRlMmNiYzA4MDE5NzZmMWRjZDQ3YzNkNjFhMg==', $api->getBasicToken());
     }
 }
