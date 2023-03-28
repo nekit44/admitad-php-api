@@ -19,7 +19,7 @@ Documetation API Admtad [link](https://developers.admitad.com/hc/ru/articles/798
 ```php
     $refreshToken = $api->refreshToken($clientId, $secret, $data->refresh_token);
 ```
-#### or Access token use base64_header
+#### or get Access token use base64_header
 ```php
     $api = (new Api())->setBasicToken('Y2IyODFkOTE4YTM3ZTM0NmI0NWU5YWVhMWM2ZWI3OmEwZjhhOGIyNGRlOGI4MTgyYTBkZGQyZTg5ZjViMQ==');
     $clientId = 'cb281d918a37e346b45e9aea1c6eb7';
