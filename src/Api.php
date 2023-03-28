@@ -7,6 +7,7 @@ use Curl\Curl;
 use Nekit44\AdmitadPhpApi\Constants\Language;
 use Nekit44\AdmitadPhpApi\Constants\Method;
 use Nekit44\AdmitadPhpApi\Exception\ApiException;
+use Nekit44\AdmitadPhpApi\Exception\NotFoundException;
 use stdClass;
 
 
@@ -15,7 +16,6 @@ class Api
     const HOST = 'https://api.admitad.com';
     private ?string $accessToken;
     private Curl $curl;
-    private string $language = Language::RU;
     private ?string $basicToken;
 
 
@@ -43,6 +43,16 @@ class Api
     public function getBasicToken(): ?string
     {
         return $this->basicToken;
+    }
+
+    /**
+     * @param string $base64_encode
+     * @return $this
+     */
+    public function setBasicToken(string $base64_encode): self
+    {
+        $this->basicToken = $base64_encode;
+        return $this;
     }
 
     /**
@@ -111,23 +121,22 @@ class Api
     }
 
     /**
-     * @param string $accessToken
+     * @param string $url
      * @param int $limit
      * @param int $offset
-     * @param array $params ['website', 'has_tool', 'traffic_id']
+     * @param array $params
      * @return stdClass
      * @throws ApiException
      */
-    public function advcampaigns(string $accessToken, int $limit = 5, int $offset = 0, array $params = []): stdClass
+    public function methods(string $url, string $method, int $limit = 5, int $offset = 0, array $params = []): stdClass
     {
-        $this->curl->setHeader('Authorization', "Bearer $accessToken");
+        $this->curl->setHeader('Authorization', "Bearer {$this->getAccessToken()}");
         $requestDataDefault = [
             'limit' => $limit,
-            'offset' => $offset,
-            'language' => $this->language,
+            'offset' => $offset
         ];
         $requestData = array_merge($requestDataDefault, $params);
-        return $this->send($this->curl, Method::GET, '/advcampaigns/', $requestData);
+        return $this->send($this->curl, $method, $url, $requestData);
     }
 
     /**
@@ -144,7 +153,8 @@ class Api
         if (!$curl->error) {
             return $curl->response;
         }
-        throw new ApiException('Failed: ' . $curl->response->error_description ?? $curl->httpStatusCode . ' response code');
+        if ($curl->httpStatusCode == 404) throw new NotFoundException('Not found 404');
+        throw new ApiException('Failed: ' . $curl?->response?->error_description ?? $curl->httpStatusCode . ' response code');
     }
 
     /**
@@ -163,8 +173,5 @@ class Api
         ]);
     }
 
-    private function setBasicToken(string $base64_encode)
-    {
-        $this->basicToken = $base64_encode;
-    }
+
 }
