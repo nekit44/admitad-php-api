@@ -1,6 +1,7 @@
 {
     "name": "nekit44/admitad-php-api",
     "keywords": ["admitad", "api"],
+    "description": "PHP wrap for Admitad API",
     "license": "MIT",
     "authors": [
         {
