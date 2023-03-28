@@ -2,7 +2,7 @@ Admitad API
 
 #### install
 ```
-composer require admitad/api dev-master
+composer require nekit44/admitad-php-api dev-master
 ```
 
 Documetation API Admtad [link](https://developers.admitad.com/hc/ru/articles/7981317512337)
