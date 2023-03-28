@@ -13,7 +13,7 @@ Documetation API Admtad [link](https://developers.admitad.com/hc/ru/articles/798
     $clientId = 'cb281d918a37e346b45e9aea1c6eb7';
     $secret = 'a0f8a8b24de8b8182a0ddd2e89f5b1';
 
-    $data = $api->authorizedByClientIdAndSecret($clientId, $secret, 'advcampaigns banners websites');
+    $data = $api->authorizedByClientIdAndSecret($clientId, $secret, scope:'advcampaigns banners websites');
 ```
 #### Refresh token
 ```php
@@ -23,5 +23,5 @@ Documetation API Admtad [link](https://developers.admitad.com/hc/ru/articles/798
 ```php
     $api = (new Api())->setBasicToken('Y2IyODFkOTE4YTM3ZTM0NmI0NWU5YWVhMWM2ZWI3OmEwZjhhOGIyNGRlOGI4MTgyYTBkZGQyZTg5ZjViMQ==');
     $clientId = 'cb281d918a37e346b45e9aea1c6eb7';
-    $data = $api->authorizedByBasicToken($clientId, 'advcampaigns banners websites');
+    $data = $api->authorizedByBasicToken($clientId, scope:'advcampaigns banners websites');
 ```
