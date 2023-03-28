@@ -7,11 +7,8 @@ use Nekit44\AdmitadPhpApi\Api;
 use Nekit44\AdmitadPhpApi\Constants\Method;
 use stdClass;
 
-class Programs
+class Programs extends BaseMethod
 {
-    public function __construct(private Api $api)
-    {
-    }
 
     /**
      * @param int|null $id

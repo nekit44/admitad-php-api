@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Nekit44\AdmitadPhpApi;
 
 use Curl\Curl;
-use Nekit44\AdmitadPhpApi\Constants\Language;
 use Nekit44\AdmitadPhpApi\Constants\Method;
 use Nekit44\AdmitadPhpApi\Exception\ApiException;
 use Nekit44\AdmitadPhpApi\Exception\NotFoundException;
@@ -172,6 +171,4 @@ class Api
             'scope' => $scope,
         ]);
     }
-
-
 }
