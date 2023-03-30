@@ -2,7 +2,7 @@ Admitad API
 
 #### install
 ```
-composer require nekit44/admitad-php-api dev-master
+composer require nekit44/admitad-php-api
 ```
 
 Documetation API Admtad [link](https://developers.admitad.com/hc/ru/articles/7981317512337)
@@ -48,7 +48,7 @@ Documetation API Admtad [link](https://developers.admitad.com/hc/ru/articles/798
 ```
 #### Disconnecting the site from the program
 ```php
-    $attach = (new Programs(new Api($accessToken->access_token)))->advcampaignsDetach(siteId: 1, partnerProgramId: 1);
+    $detach = (new Programs(new Api($accessToken->access_token)))->advcampaignsDetach(siteId: 1, partnerProgramId: 1);
 ```
 
 #### Any way you can use the basic method GET or POST
