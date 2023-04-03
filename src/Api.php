@@ -121,13 +121,14 @@ class Api
 
     /**
      * @param string $url
+     * @param string $method
      * @param int $limit
      * @param int $offset
      * @param array $params
-     * @return stdClass
+     * @return mixed
      * @throws ApiException
      */
-    public function methods(string $url, string $method, int $limit = 5, int $offset = 0, array $params = []): stdClass
+    public function methods(string $url, string $method, int $limit = 5, int $offset = 0, array $params = []): mixed
     {
         $this->curl->setHeader('Authorization', "Bearer {$this->getAccessToken()}");
         $requestDataDefault = [
